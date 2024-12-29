@@ -21,10 +21,17 @@
 
 .stepNumber {
 	align-items: center;
-	width: 40px;
-	height: 40px;
+	width: 2.5em;
+	height: 2.5em;
 	color: $white;
 	font-weight: $weight-500;
 	border: 2px solid $white;
 	border-radius: 50%;
+	user-select: none;
+}
+
+@media (min-width: 992px) {
+	.header {
+		display: none;
+	}
 }

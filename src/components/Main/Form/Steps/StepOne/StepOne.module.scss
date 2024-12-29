@@ -1,0 +1,39 @@
+@use '../../../../../sass/utilities' as *;
+
+.labelBox {
+	margin-top: 0.7em;
+	margin-bottom: 0.2em;
+	display: flex;
+	justify-content: space-between;
+
+	&:not(:first-child) {
+		margin-top: 1em;
+	}
+}
+
+.label,
+.textError {
+	font-size: 1.35rem;
+}
+.textError {
+	display: none;
+	font-weight: $weight-700;
+	color: $strawberry-red;
+}
+
+.input {
+	display: block;
+	width: 100%;
+	padding: 0.6em 1.2em;
+	border: 1px solid $light-gray;
+	border-radius: 0.3em;
+
+	&:focus {
+		outline: none;
+		border: 1px solid $marine-blue;
+	}
+
+	&::placeholder {
+		font-weight: $weight-500;
+	}
+}

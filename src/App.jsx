@@ -1,14 +1,15 @@
-import Header from "./components/Header"
+import Header from './components/Header'
+import Main from './components/Main'
 
 const App = () => {
 	return (
 		<>
 			<Header />
+			<Main />
 		</>
 	)
 }
 export default App
-
 
 //  <!-- Sidebar start -->
 
@@ -106,8 +107,8 @@ export default App
 
 //   Thank you!
 
-//   Thanks for confirming your subscription! We hope you have fun 
-//   using our platform. If you ever need support, please feel free 
+//   Thanks for confirming your subscription! We hope you have fun
+//   using our platform. If you ever need support, please feel free
 //   to email us at support@loremgaming.com.
 
 //   <!-- Step 5 end -->
