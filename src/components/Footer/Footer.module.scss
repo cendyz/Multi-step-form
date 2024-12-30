@@ -1,0 +1,30 @@
+@use '../../sass/utilities' as *;
+
+.footer {
+	display: flex;
+	justify-content: space-between;
+	padding: 1em 1.5em;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	background-color: $white;
+}
+
+.leftBtn,
+.rightBtn {
+	font-size: 1.6rem;
+	font-weight: $weight-700;
+}
+
+.leftBtn {
+	color: $cool-gray;
+}
+
+.rightBtn {
+	margin-left: auto;
+	padding: 0.9em 1.1em;
+	color: $white;
+	background-color: $marine-blue;
+	border-radius: 0.4em;
+}

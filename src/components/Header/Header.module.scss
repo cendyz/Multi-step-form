@@ -24,10 +24,17 @@
 	width: 2.5em;
 	height: 2.5em;
 	color: $white;
-	font-weight: $weight-500;
+	font-weight: $weight-700;
 	border: 2px solid $white;
 	border-radius: 50%;
 	user-select: none;
+	transition: border 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.activeNumber {
+	border: 2px solid $pastel-blue;
+	background-color: $pastel-blue;
+	color: $marine-blue;
 }
 
 @media (min-width: 992px) {

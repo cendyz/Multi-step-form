@@ -1,7 +1,14 @@
 @use './sass/reset';
+@use './sass/utilities' as *;
 
 body {
 	position: relative;
 	font-family: 'Ubuntu', serif;
 	font-size: 1.6rem;
+	background-color: $magnolia;
+}
+
+#root {
+	min-height: 32.375em;
+	height: 100%;
 }
