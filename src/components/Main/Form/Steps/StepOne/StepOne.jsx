@@ -3,6 +3,10 @@ import styles from './StepOne.module.scss'
 const StepOne = () => {
 	return (
 		<>
+			<h2 className={styles.title}>Personal info</h2>
+			<p className={styles.desc}>
+				Please provide your name, email address, and phone number.
+			</p>
 			<div className={styles.labelBox}>
 				<label htmlFor='name' className={styles.label}>
 					Name

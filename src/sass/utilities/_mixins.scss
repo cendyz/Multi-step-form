@@ -1,5 +1,21 @@
+@use './colors' as *;
+
 @mixin wrapper {
 	margin: 0 auto;
-    width: 100%;
+	width: 100%;
 	max-width: 90em;
+}
+
+@mixin titleDesc {
+	.title {
+		margin-bottom: 0.5em;
+		font-size: 2.5rem;
+		color: $marine-blue;
+	}
+
+	.desc {
+		margin-bottom: 1.5em;
+		color: $cool-gray;
+		line-height: 1.5;
+	}
 }

@@ -1,5 +1,12 @@
 @use '../../../../../sass/utilities' as *;
 
+@include titleDesc;
+
+.label {
+	font-weight: $weight-700;
+	color: $marine-blue;
+}
+
 .labelBox {
 	margin-top: 0.7em;
 	margin-bottom: 0.2em;

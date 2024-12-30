@@ -14,8 +14,28 @@ const AppContext = ({ children }) => {
 		console.log(e.target)
 	}
 
+	const handleNextSteps = () => {
+		setSteps(prevSteps => {
+			const stepKeys = Object.keys(prevSteps)
+			const currentIndex = stepKeys.findIndex(key => prevSteps[key])
+
+			if (currentIndex < stepKeys.length - 1) {
+				const newIndex = currentIndex + 1
+				return stepKeys.reduce((nextStep, key, index) => {
+					nextStep[key] = index === newIndex
+					return stepKeys
+				}, {})
+			}
+			return prevSteps
+		})
+	}
+
+	const handleNumbers = () => {
+		
+	}
+
 	return (
-		<GlobalContext.Provider value={{ handleSubmit, steps }}>
+		<GlobalContext.Provider value={{ handleSubmit, steps, handleNextSteps }}>
 			{children}
 		</GlobalContext.Provider>
 	)
