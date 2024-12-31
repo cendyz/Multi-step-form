@@ -1,0 +1,57 @@
+@use '../../../../../sass/utilities' as *;
+
+@include titleDesc;
+
+.input {
+	display: none;
+}
+
+.btnsBox {
+	display: grid;
+	row-gap: 1em;
+}
+
+.descBox,
+.btn {
+	display: flex;
+}
+
+.btn {
+	column-gap: 0.8em;
+	padding: 1.2em 0.9em;
+	border: 1px solid $cool-gray;
+	border-radius: 0.6em;
+	cursor: pointer;
+	transition: border 0.1s, background-color 0.1s;
+
+	&:focus {
+		background-color: $magnolia;
+		border-color: $marine-blue;
+	}
+}
+
+.icon {
+	align-self: start;
+}
+
+.descBox {
+	text-align: left;
+	flex-direction: column;
+	row-gap: 0.3em;
+}
+
+.descTitle {
+	font-size: 1.7rem;
+	color: $marine-blue;
+}
+
+.price {
+	font-size: 1.5rem;
+	color: $cool-gray;
+}
+
+.free {
+	font-size: 1.3rem;
+	color: $marine-blue;
+	font-weight: $weight-500;
+}

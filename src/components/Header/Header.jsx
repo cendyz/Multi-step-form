@@ -4,29 +4,32 @@ import classNames from 'classnames'
 import { useGlobalContext } from '../../Context'
 
 const Header = () => {
-	const { numbers } = useGlobalContext()
+	const { steps } = useGlobalContext()
 	return (
 		<div className={styles.header}>
 			<img src={pattern} alt='' className={styles.headerPattern} />
 			<div className={styles.stepBox}>
-				<p className={classNames(styles.stepNumber, styles.activeNumber)}>
+				<p
+					className={classNames(styles.stepNumber, {
+						[styles.activeNumber]: steps.stepOne,
+					})}>
 					1
 				</p>
 				<p
 					className={classNames(styles.stepNumber, {
-						[styles.activeNumber]: numbers.numTwo,
+						[styles.activeNumber]: steps.stepTwo,
 					})}>
 					2
 				</p>
 				<p
 					className={classNames(styles.stepNumber, {
-						[styles.activeNumber]: numbers.numThree,
+						[styles.activeNumber]: steps.stepThree,
 					})}>
 					3
 				</p>
 				<p
 					className={classNames(styles.stepNumber, {
-						[styles.activeNumber]: numbers.numFour,
+						[styles.activeNumber]: steps.stepFour,
 					})}>
 					4
 				</p>

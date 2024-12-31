@@ -10,12 +10,6 @@ const AppContext = ({ children }) => {
 		stepFour: false,
 	})
 
-	const [numbers, setNumbers] = useState({
-		numTwo: false,
-		numThree: false,
-		numFour: false,
-	})
-
 	const handleSubmit = e => {
 		console.log(e.target)
 	}
@@ -27,38 +21,23 @@ const AppContext = ({ children }) => {
 
 			if (currentIndex < stepKeys.length - 1) {
 				const newIndex = currentIndex + 1
-				return stepKeys.reduce((nextStep, key, index) => {
-					nextStep[key] = index === newIndex
-					return stepKeys
+				return stepKeys.reduce((nextKey, key, index) => {
+					nextKey[key] = index === newIndex
+					return nextKey
 				}, {})
 			}
 			return prevSteps
 		})
 	}
 
-	const handleNextNumbers = () => {
-		setNumbers(prevNumbers => {
-			const keys = Object.keys(prevNumbers)
-			const nextIndex = keys.findIndex(key => !prevNumbers[key])
-			if (nextIndex === -1) return prevNumbers
-
-			const updatedNumbers = keys.reduce((newNumbers, key, index) => {
-				newNumbers[key] = index === nextIndex ? true : prevNumbers[key]
-				return newNumbers
-			}, {})
-
-			return updatedNumbers
-		})
-	}
 
 	const handleNextClick = () => {
 		handleNextSteps()
-		handleNextNumbers()
 	}
 
 	return (
 		<GlobalContext.Provider
-			value={{ handleSubmit, steps, handleNextClick, numbers }}>
+			value={{ handleSubmit, steps, handleNextClick}}>
 			{children}
 		</GlobalContext.Provider>
 	)
