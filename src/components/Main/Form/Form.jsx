@@ -7,10 +7,8 @@ const Form = () => {
 	return (
 		<form
 			className={styles.form}
-			onSubmit={e => handleSubmit()}
+			onSubmit={e => handleSubmit(e)}
 			id='myForm'>
-			{/* {steps.stepOne && <StepOne />} */}
-			{/* {steps.stepTwo && <StepTwo />} */}
 			<StepOne />
 			<StepTwo />
 		</form>

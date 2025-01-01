@@ -1,11 +1,10 @@
 import styles from './StepTwo.module.scss'
 import classNames from 'classnames'
 import { plansData } from '../../../../../data'
-import { nanoid } from 'nanoid'
 import { useGlobalContext } from '../../../../../Context'
 
 const StepTwo = () => {
-	const { handlePlan, buttonRef, steps } = useGlobalContext()
+	const { handlePlan, buttonRef, steps, plan } = useGlobalContext()
 	return (
 		<>
 			<div
@@ -21,10 +20,13 @@ const StepTwo = () => {
 				</p>
 				<div className={styles.btnsBox}>
 					{plansData.map(({ title, price, icon, alt }, index) => {
+						const actualPlan = plan.name === title
 						return (
 							<button
 								type='button'
-								className={styles.btn}
+								className={classNames(styles.btn, {
+									[styles.active]: actualPlan,
+								})}
 								key={index}
 								onClick={() => handlePlan({ title }, { price }, { index })}
 								ref={buttonRef}>

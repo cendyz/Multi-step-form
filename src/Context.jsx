@@ -98,29 +98,28 @@ const AppContext = ({ children }) => {
 
 			if (currentIndex > 0) {
 				const newIndex = currentIndex - 1
-				const newSteps = stepKeys.reduce((nextKey, key, index) => {
+				const oldSteps = stepKeys.reduce((nextKey, key, index) => {
 					nextKey[key] = index === newIndex
 					return nextKey
 				}, {})
 
-				if (newSteps.stepOne && user.email) {
+				if (oldSteps.stepOne && user.email) {
 					if (!emailRegex.test(user.email)) {
 						setEmailError('Email is invalid.')
 					}
 				}
 
-				return newSteps
+				return oldSteps
 			}
 			return prevSteps
 		})
 	}
 
 	const handleNextClick = () => {
-		if (steps.stepOne) {
-			if (checkInputs()) {
-				handleNextSteps()
-			}
-		} else {
+		if (steps.stepOne && checkInputs()) {
+			handleNextSteps()
+		}
+		if (steps.stepTwo && plan.name) {
 			handleNextSteps()
 		}
 	}
@@ -148,6 +147,7 @@ const AppContext = ({ children }) => {
 				error,
 				emailError,
 				handlePreviousClick,
+				plan,
 			}}>
 			{children}
 		</GlobalContext.Provider>
