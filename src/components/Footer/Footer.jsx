@@ -2,11 +2,11 @@ import styles from './Footer.module.scss'
 import { useGlobalContext } from '../../Context'
 
 const Footer = () => {
-	const { steps, handleNextClick } = useGlobalContext()
+	const { steps, handleNextClick, handlePreviousClick } = useGlobalContext()
 	return (
 		<footer className={styles.footer}>
 			{!steps.stepOne && (
-				<button type='button' className={styles.leftBtn}>
+				<button type='button' className={styles.leftBtn} onClick={handlePreviousClick}>
 					Go Back
 				</button>
 			)}

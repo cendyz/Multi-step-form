@@ -6,7 +6,7 @@ import {
 	useEffect,
 } from 'react'
 
-const emailRegex = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim
+const emailRegex = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
 const GlobalContext = createContext()
 
 const AppContext = ({ children }) => {
@@ -25,6 +25,8 @@ const AppContext = ({ children }) => {
 		phone: '',
 	})
 
+	const [emailError, setEmailError] = useState('This field is required.')
+
 	const [plan, setPlan] = useState({
 		name: '',
 		price: '',
@@ -41,7 +43,22 @@ const AppContext = ({ children }) => {
 	}
 
 	const checkInputs = () => {
-	
+		const newError = [false, false, false]
+
+		let localEmailError
+
+		if (user.name === '') newError[0] = true
+		if (user.email === '') {
+			newError[1] = true
+			localEmailError = 'This field is required.'
+		} else if (!emailRegex.test(user.email)) {
+			newError[1] = true
+			localEmailError = 'Email is invalid.'
+		}
+		if (user.phone === '') newError[2] = true
+		setEmailError(localEmailError)
+		setError(newError)
+		return !newError.includes(true)
 	}
 
 	const handlePlan = (currentPlan, currentPrice, index) => {
@@ -74,11 +91,44 @@ const AppContext = ({ children }) => {
 		})
 	}
 
-	const handleNextClick = () => {
-		if (checkInputs()) {
-		}
-		handleNextSteps()
+	const handlePreviousSteps = () => {
+		setSteps(prevSteps => {
+			const stepKeys = Object.keys(prevSteps)
+			const currentIndex = stepKeys.findIndex(key => prevSteps[key])
+
+			if (currentIndex > 0) {
+				const newIndex = currentIndex - 1
+				const newSteps = stepKeys.reduce((nextKey, key, index) => {
+					nextKey[key] = index === newIndex
+					return nextKey
+				}, {})
+
+				if (newSteps.stepOne && user.email) {
+					if (!emailRegex.test(user.email)) {
+						setEmailError('Email is invalid.')
+					}
+				}
+
+				return newSteps
+			}
+			return prevSteps
+		})
 	}
+
+	const handleNextClick = () => {
+		if (steps.stepOne) {
+			if (checkInputs()) {
+				handleNextSteps()
+			}
+		} else {
+			handleNextSteps()
+		}
+	}
+
+	const handlePreviousClick = () => {
+		handlePreviousSteps()
+	}
+
 	const handleSubmit = e => {
 		console.log(e.target)
 	}
@@ -96,6 +146,8 @@ const AppContext = ({ children }) => {
 				setUser,
 				inputRef,
 				error,
+				emailError,
+				handlePreviousClick,
 			}}>
 			{children}
 		</GlobalContext.Provider>

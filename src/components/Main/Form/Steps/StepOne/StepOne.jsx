@@ -5,7 +5,7 @@ import React from 'react'
 import { stepOneData } from '../../../../../data'
 
 const StepOne = () => {
-	const { handleUser, user, inputRef, error, steps } = useGlobalContext()
+	const { handleUser, user, inputRef, error, steps, emailError } = useGlobalContext()
 	return (
 		<>
 			<div
@@ -21,6 +21,7 @@ const StepOne = () => {
 				</p>
 				{stepOneData.map(({ name, placeholder }, index) => {
 					const actualError = error[index]
+				
 					return (
 						<React.Fragment key={index}>
 							<div className={styles.labelBox}>
@@ -33,7 +34,7 @@ const StepOne = () => {
 										opacity: actualError && '1',
 										visibility: actualError && 'visible',
 									}}>
-									This field is required
+									{index === 1 ? emailError : 'This field is required.'}
 								</p>
 							</div>
 							<input
