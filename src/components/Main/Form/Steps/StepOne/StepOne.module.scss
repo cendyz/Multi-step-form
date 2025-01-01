@@ -3,6 +3,7 @@
 @include titleDesc;
 
 .label {
+	text-transform: capitalize;
 	font-weight: $weight-700;
 	color: $marine-blue;
 }
@@ -23,9 +24,11 @@
 	font-size: 1.35rem;
 }
 .textError {
-	display: none;
 	font-weight: $weight-700;
 	color: $strawberry-red;
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity .2s, visibility .2s;
 }
 
 .input {
@@ -34,6 +37,7 @@
 	padding: 0.6em 1.2em;
 	border: 1px solid $light-gray;
 	border-radius: 0.3em;
+	transition: border .2s;
 
 	&:focus {
 		outline: none;

@@ -1,6 +1,9 @@
 @use '../../../sass/utilities' as *;
 
 .form {
+	display: grid;
+	grid-template-columns: auto;
+	grid-template-rows: auto;
 	padding: 1.5em;
 	position: absolute;
 	left: 50%;
@@ -12,5 +15,3 @@
 	background-color: $white;
 	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
-
-

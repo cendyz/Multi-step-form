@@ -2,6 +2,7 @@ import styles from './Header.module.scss'
 import pattern from '../../images/mobile/bg-sidebar-mobile.svg'
 import classNames from 'classnames'
 import { useGlobalContext } from '../../Context'
+import { headerData } from '../../data'
 
 const Header = () => {
 	const { steps } = useGlobalContext()
@@ -9,30 +10,18 @@ const Header = () => {
 		<div className={styles.header}>
 			<img src={pattern} alt='' className={styles.headerPattern} />
 			<div className={styles.stepBox}>
-				<p
-					className={classNames(styles.stepNumber, {
-						[styles.activeNumber]: steps.stepOne,
-					})}>
-					1
-				</p>
-				<p
-					className={classNames(styles.stepNumber, {
-						[styles.activeNumber]: steps.stepTwo,
-					})}>
-					2
-				</p>
-				<p
-					className={classNames(styles.stepNumber, {
-						[styles.activeNumber]: steps.stepThree,
-					})}>
-					3
-				</p>
-				<p
-					className={classNames(styles.stepNumber, {
-						[styles.activeNumber]: steps.stepFour,
-					})}>
-					4
-				</p>
+				{headerData.map(({ step, num }, index) => {
+					return (
+						<p
+							className={classNames(styles.stepNumber, {
+								[styles.activeNumber]: steps[step],
+							})}
+							key={index}>
+							{num}
+						</p>
+					)
+				})}
+				\
 			</div>
 		</div>
 	)

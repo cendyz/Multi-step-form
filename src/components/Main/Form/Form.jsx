@@ -9,8 +9,10 @@ const Form = () => {
 			className={styles.form}
 			onSubmit={e => handleSubmit()}
 			id='myForm'>
-			{steps.stepOne && <StepOne />}
-			{steps.stepTwo && <StepTwo />}
+			{/* {steps.stepOne && <StepOne />} */}
+			{/* {steps.stepTwo && <StepTwo />} */}
+			<StepOne />
+			<StepTwo />
 		</form>
 	)
 }
