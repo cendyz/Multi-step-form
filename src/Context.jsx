@@ -3,18 +3,38 @@ import {
 	useContext,
 	useState,
 	useRef,
-	useEffect, useReducer
+	useEffect,
+	useReducer,
 } from 'react'
 
-import { reducer, INITIAL_STATE } from './reducer'
-import { SET_USER } from './actions'
-
+import { reducer } from './reducer'
+import { SET_USER, NEXT_STEP, CHECK_INPUTS } from './actions'
 
 const emailRegex = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
+
+const INITIAL_STATE = {
+	user: {
+		name: '',
+		email: '',
+		phone: '',
+	},
+	error: [false, false, false],
+	emailError: 'This field is required.',
+	plan: {
+		name: '',
+		price: '',
+	},
+	steps: {
+		stepOne: true,
+		stepTwo: false,
+		stepThree: false,
+		stepFour: false,
+	},
+}
 const GlobalContext = createContext()
 
 const AppContext = ({ children }) => {
-	 const [state, dispatch] = useReducer(reducer, INITIAL_STATE)
+	const [state, dispatch] = useReducer(reducer, INITIAL_STATE)
 	const buttonRef = useRef([])
 	const inputRef = useRef([])
 	const [steps, setSteps] = useState({
@@ -24,63 +44,43 @@ const AppContext = ({ children }) => {
 		stepFour: false,
 	})
 
-	const [user, setUser] = useState({
-		name: '',
-		email: '',
-		phone: '',
-	})
-
-	const [emailError, setEmailError] = useState('This field is required.')
-
 	const [plan, setPlan] = useState({
 		name: '',
 		price: '',
 	})
 
-	const [error, setError] = useState([])
-
 	const handleUser = (e, index) => {
 		if (inputRef.current[index]) {
 			inputRef.current[index].focus()
 		}
-
 		dispatch({
 			type: SET_USER,
 			payload: { name: e.target.name, value: e.target.value },
 		})
-		// setUser({ ...user, [e.target.name]: e.target.value })
 	}
 
 	const checkInputs = () => {
+		const newError = [false, false, false]
+		let localEmailError = 'This field is required.'
 
-		
+		if (state.user.name === '') newError[0] = true
+		if (state.user.email === '') {
+			newError[1] = true
+		} else if (!emailRegex.test(state.user.email)) {
+			newError[1] = true
+			localEmailError = 'Email is invalid.'
+		}
+		if (state.user.phone === '') newError[2] = true
 
-		// if (state.user.name === '') newError[0] = true
-		// if (state.user.email === '') {
-		// 	newError[1] = true
-		
-		// } else if (!emailRegex.test(state.user.email)) {
-		// 	newError[1] = true
-		// }
-		// if (state.user.phone === '') newError[2] = true
-		dispatch({type: 'CHECK_INPUTS'})
-		return !state.error.includes(true)
-		// const newError = [false, false, false]
+		dispatch({
+			type: CHECK_INPUTS,
+			payload: {
+				error: newError,
+				emailError: localEmailError,
+			},
+		})
 
-		// let localEmailError
-
-		// if (user.name === '') newError[0] = true
-		// if (user.email === '') {
-		// 	newError[1] = true
-		// 	localEmailError = 'This field is required.'
-		// } else if (!emailRegex.test(user.email)) {
-		// 	newError[1] = true
-		// 	localEmailError = 'Email is invalid.'
-		// }
-		// if (user.phone === '') newError[2] = true
-		// setEmailError(localEmailError)
-		// setError(newError)
-		// return !newError.includes(true)
+		return !newError.includes(true)
 	}
 
 	const handlePlan = (currentPlan, currentPrice, index) => {
@@ -100,19 +100,7 @@ const AppContext = ({ children }) => {
 	}
 
 	const handleNextSteps = () => {
-		setSteps(prevSteps => {
-			const stepKeys = Object.keys(prevSteps)
-			const currentIndex = stepKeys.findIndex(key => prevSteps[key])
-
-			if (currentIndex < stepKeys.length - 1) {
-				const newIndex = currentIndex + 1
-				return stepKeys.reduce((nextKey, key, index) => {
-					nextKey[key] = index === newIndex
-					return nextKey
-				}, {})
-			}
-			return prevSteps
-		})
+		dispatch({ type: NEXT_STEP })
 	}
 
 	const handlePreviousSteps = () => {
@@ -140,14 +128,12 @@ const AppContext = ({ children }) => {
 	}
 
 	const handleNextClick = () => {
-		// if (steps.stepOne && checkInputs()) {
-		// 	handleNextSteps()
-		// }
+		if (state.steps.stepOne && checkInputs()) {
+			handleNextSteps()
+		}
 		// if (steps.stepTwo && plan.name) {
 		// 	handleNextSteps()
 		// }
-		checkInputs()
-		
 	}
 
 	const handlePreviousClick = () => {
@@ -167,15 +153,13 @@ const AppContext = ({ children }) => {
 				handlePlan,
 				buttonRef,
 				handleUser,
-				user,
-				setUser,
+
 				inputRef,
-				error,
-				emailError,
+
 				handlePreviousClick,
 				plan,
 				handlePlanEnter,
-				state
+				state,
 			}}>
 			{children}
 		</GlobalContext.Provider>

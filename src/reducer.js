@@ -6,6 +6,16 @@ export const INITIAL_STATE = {
 	},
 	error: [false, false, false],
 	emailError: 'This field is required.',
+	plan: {
+		name: '',
+		price: '',
+	},
+	steps: {
+		stepOne: true,
+		stepTwo: false,
+		stepThree: false,
+		stepFour: false,
+	},
 }
 
 export const reducer = (state, action) => {
@@ -19,25 +29,28 @@ export const reducer = (state, action) => {
 				},
 			}
 		case 'CHECK_INPUTS':
-			const newError = [false, false, false]
-			let localEmailError = 'This field is required.'
+			 return {
+					...state,
+					error: action.payload?.error || state.error,
+					emailError: action.payload?.emailError || state.emailError,
+				}
+		case 'NEXT_STEP':
+			const stepKeys = Object.keys(state.steps)
+			const currentIndex = stepKeys.findIndex(key => state.steps[key])
 
-			if (state.user.name === '') newError[0] = true
-			if (state.user.email === '') {
-				newError[1] = true
-			} else if (
-				!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(state.user.email)
-			) {
-				newError[1] = true
-				localEmailError = 'Email is invalid.'
+			if (currentIndex < stepKeys.length - 1) {
+				const newIndex = currentIndex + 1
+				const newSteps = stepKeys.reduce((nextKey, key, index) => {
+					nextKey[key] = index === newIndex
+					return nextKey
+				}, {})
+				return {
+					...state,
+					steps: newSteps,
+				}
 			}
-			if (state.user.phone === '') newError[2] = true
+			return state
 
-			return {
-				...state,
-				error: newError,
-				emailError: localEmailError,
-			}
 		default:
 			return state
 	}

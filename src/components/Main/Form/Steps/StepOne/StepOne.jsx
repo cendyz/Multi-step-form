@@ -5,17 +5,16 @@ import React from 'react'
 import { stepOneData } from '../../../../../data'
 
 const StepOne = () => {
-	const { handleUser, user, inputRef, error, steps, emailError, state } =
-		useGlobalContext()
+	const { handleUser, inputRef,state } = useGlobalContext()
 	return (
 		<>
 			<div
 				className={classNames(styles.box, {
-					[styles.current]: steps.stepOne,
-					show: steps.stepOne,
-					hide: !steps.stepOne,
+					[styles.current]: state.steps.stepOne,
+					show: state.steps.stepOne,
+					hide: !state.steps.stepOne,
 				})}
-				style={{ display: steps.stepOne ? 'block' : 'none' }}>
+				style={{ display: state.steps.stepOne ? 'block' : 'none' }}>
 				<h2 className={styles.title}>Personal info</h2>
 				<p className={styles.desc}>
 					Please provide your name, email address, and phone number.
@@ -32,10 +31,11 @@ const StepOne = () => {
 								<p
 									className={styles.textError}
 									style={{
-										opacity: actualError && '1',
-										visibility: actualError && 'visible',
+										display: actualError && 'block',
 									}}>
-									{index === 1 ? state.emailError : 'This field is required.'}
+									{index === 1
+										? state.emailError
+										: 'This field is required.'}
 								</p>
 							</div>
 							<input

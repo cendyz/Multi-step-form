@@ -4,18 +4,18 @@ import { plansData } from '../../../../../data'
 import { useGlobalContext } from '../../../../../Context'
 
 const StepTwo = () => {
-	const { handlePlan, buttonRef, steps, plan, handlePlanEnter } =
+	const { handlePlan, buttonRef, plan, handlePlanEnter, state } =
 		useGlobalContext()
 
 	return (
 		<>
 			<div
 				className={classNames(styles.box, {
-					[styles.current]: steps.stepTwo,
-					show: steps.stepTwo,
-					hide: !steps.stepTwo,
+					[styles.current]: state.steps.stepTwo,
+					show: state.steps.stepTwo,
+					hide: !state.steps.stepTwo,
 				})}
-				style={{ display: steps.stepTwo ? 'block' : 'none' }}>
+				style={{ display: state.steps.stepTwo ? 'block' : 'none' }}>
 				<h2 className={styles.title}>Select your plan</h2>
 				<p className={styles.desc}>
 					You have the option of monthly or yearly billing.
