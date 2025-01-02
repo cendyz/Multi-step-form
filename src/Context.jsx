@@ -3,13 +3,18 @@ import {
 	useContext,
 	useState,
 	useRef,
-	useEffect,
+	useEffect, useReducer
 } from 'react'
+
+import { reducer, INITIAL_STATE } from './reducer'
+import { SET_USER } from './actions'
+
 
 const emailRegex = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
 const GlobalContext = createContext()
 
 const AppContext = ({ children }) => {
+	 const [state, dispatch] = useReducer(reducer, INITIAL_STATE)
 	const buttonRef = useRef([])
 	const inputRef = useRef([])
 	const [steps, setSteps] = useState({
@@ -39,26 +44,43 @@ const AppContext = ({ children }) => {
 			inputRef.current[index].focus()
 		}
 
-		setUser({ ...user, [e.target.name]: e.target.value })
+		dispatch({
+			type: SET_USER,
+			payload: { name: e.target.name, value: e.target.value },
+		})
+		// setUser({ ...user, [e.target.name]: e.target.value })
 	}
 
 	const checkInputs = () => {
-		const newError = [false, false, false]
 
-		let localEmailError
+		
 
-		if (user.name === '') newError[0] = true
-		if (user.email === '') {
-			newError[1] = true
-			localEmailError = 'This field is required.'
-		} else if (!emailRegex.test(user.email)) {
-			newError[1] = true
-			localEmailError = 'Email is invalid.'
-		}
-		if (user.phone === '') newError[2] = true
-		setEmailError(localEmailError)
-		setError(newError)
-		return !newError.includes(true)
+		// if (state.user.name === '') newError[0] = true
+		// if (state.user.email === '') {
+		// 	newError[1] = true
+		
+		// } else if (!emailRegex.test(state.user.email)) {
+		// 	newError[1] = true
+		// }
+		// if (state.user.phone === '') newError[2] = true
+		dispatch({type: 'CHECK_INPUTS'})
+		return !state.error.includes(true)
+		// const newError = [false, false, false]
+
+		// let localEmailError
+
+		// if (user.name === '') newError[0] = true
+		// if (user.email === '') {
+		// 	newError[1] = true
+		// 	localEmailError = 'This field is required.'
+		// } else if (!emailRegex.test(user.email)) {
+		// 	newError[1] = true
+		// 	localEmailError = 'Email is invalid.'
+		// }
+		// if (user.phone === '') newError[2] = true
+		// setEmailError(localEmailError)
+		// setError(newError)
+		// return !newError.includes(true)
 	}
 
 	const handlePlan = (currentPlan, currentPrice, index) => {
@@ -69,9 +91,11 @@ const AppContext = ({ children }) => {
 			name: value,
 			price: priceValue,
 		}))
+	}
 
-		if (buttonRef.current[index]) {
-			buttonRef.current[index].focus()
+	const handlePlanEnter = (e, currentPlan, currentPrice, index) => {
+		if (e.key === 'Enter') {
+			handlePlan(currentPlan, currentPrice, index)
 		}
 	}
 
@@ -116,12 +140,14 @@ const AppContext = ({ children }) => {
 	}
 
 	const handleNextClick = () => {
-		if (steps.stepOne && checkInputs()) {
-			handleNextSteps()
-		}
-		if (steps.stepTwo && plan.name) {
-			handleNextSteps()
-		}
+		// if (steps.stepOne && checkInputs()) {
+		// 	handleNextSteps()
+		// }
+		// if (steps.stepTwo && plan.name) {
+		// 	handleNextSteps()
+		// }
+		checkInputs()
+		
 	}
 
 	const handlePreviousClick = () => {
@@ -148,6 +174,8 @@ const AppContext = ({ children }) => {
 				emailError,
 				handlePreviousClick,
 				plan,
+				handlePlanEnter,
+				state
 			}}>
 			{children}
 		</GlobalContext.Provider>

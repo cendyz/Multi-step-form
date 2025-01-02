@@ -4,7 +4,9 @@ import { plansData } from '../../../../../data'
 import { useGlobalContext } from '../../../../../Context'
 
 const StepTwo = () => {
-	const { handlePlan, buttonRef, steps, plan } = useGlobalContext()
+	const { handlePlan, buttonRef, steps, plan, handlePlanEnter } =
+		useGlobalContext()
+
 	return (
 		<>
 			<div
@@ -20,15 +22,18 @@ const StepTwo = () => {
 				</p>
 				<div className={styles.btnsBox}>
 					{plansData.map(({ title, price, icon, alt }, index) => {
-						const actualPlan = plan.name === title
 						return (
-							<button
-								type='button'
+							<div
+								tabIndex='0'
+								role='button'
 								className={classNames(styles.btn, {
-									[styles.active]: actualPlan,
+									[styles.active]: plan.name === title,
 								})}
 								key={index}
 								onClick={() => handlePlan({ title }, { price }, { index })}
+								onKeyDown={e =>
+									handlePlanEnter(e, { title }, { price }, { index })
+								}
 								ref={buttonRef}>
 								<img src={icon} alt={alt} className={styles.icon} />
 								<div className={styles.descBox}>
@@ -36,7 +41,7 @@ const StepTwo = () => {
 									<p className={styles.price}>${price}/yr</p>
 									<p className={styles.free}>2 months free</p>
 								</div>
-							</button>
+							</div>
 						)
 					})}
 				</div>

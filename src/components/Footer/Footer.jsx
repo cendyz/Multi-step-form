@@ -2,11 +2,15 @@ import styles from './Footer.module.scss'
 import { useGlobalContext } from '../../Context'
 
 const Footer = () => {
-	const { steps, handleNextClick, handlePreviousClick } = useGlobalContext()
+	const { steps, handleNextClick, handlePreviousClick } =
+		useGlobalContext()
 	return (
 		<footer className={styles.footer}>
 			{!steps.stepOne && (
-				<button type='button' className={styles.leftBtn} onClick={handlePreviousClick}>
+				<button
+					type='button'
+					className={styles.leftBtn}
+					onClick={handlePreviousClick}>
 					Go Back
 				</button>
 			)}
@@ -14,11 +18,9 @@ const Footer = () => {
 				className={styles.rightBtn}
 				type={steps.stepFour ? 'submit' : 'button'}
 				id='myForm'
-				onClick={handleNextClick}
-				>
+				onClick={handleNextClick}>
 				{steps.stepFour ? 'Confirm' : 'Next Step'}
 			</button>
-			
 		</footer>
 	)
 }
