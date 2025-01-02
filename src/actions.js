@@ -1,3 +1,5 @@
 export const NEXT_STEP = 'NEXT_STEP'
+export const PREVIOUS_STEP = 'PREVIOUS_STEP'
 export const SET_USER = 'SET_USER'
 export const CHECK_INPUTS = 'CHECK_INPUTS'
+export const SET_PLAN = 'SET_PLAN'

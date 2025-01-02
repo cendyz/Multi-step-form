@@ -3,51 +3,24 @@ import {
 	useContext,
 	useState,
 	useRef,
-	useEffect,
 	useReducer,
 } from 'react'
 
-import { reducer } from './reducer'
-import { SET_USER, NEXT_STEP, CHECK_INPUTS } from './actions'
+import { INITIAL_STATE, reducer, emailRegex } from './reducer'
+import {
+	SET_USER,
+	NEXT_STEP,
+	PREVIOUS_STEP,
+	CHECK_INPUTS,
+	SET_PLAN,
+} from './actions'
 
-const emailRegex = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
-
-const INITIAL_STATE = {
-	user: {
-		name: '',
-		email: '',
-		phone: '',
-	},
-	error: [false, false, false],
-	emailError: 'This field is required.',
-	plan: {
-		name: '',
-		price: '',
-	},
-	steps: {
-		stepOne: true,
-		stepTwo: false,
-		stepThree: false,
-		stepFour: false,
-	},
-}
 const GlobalContext = createContext()
 
 const AppContext = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, INITIAL_STATE)
 	const buttonRef = useRef([])
 	const inputRef = useRef([])
-	const [steps, setSteps] = useState({
-		stepOne: true,
-		stepTwo: false,
-		stepThree: false,
-		stepFour: false,
-	})
-
-	const [plan, setPlan] = useState({
-		name: '',
-		price: '',
-	})
 
 	const handleUser = (e, index) => {
 		if (inputRef.current[index]) {
@@ -83,14 +56,8 @@ const AppContext = ({ children }) => {
 		return !newError.includes(true)
 	}
 
-	const handlePlan = (currentPlan, currentPrice, index) => {
-		const value = currentPlan.title
-		const priceValue = currentPrice.price
-		setPlan(prevPlan => ({
-			...prevPlan,
-			name: value,
-			price: priceValue,
-		}))
+	const handlePlan = (currentPlan, currentPrice) => {
+		dispatch({ type: SET_PLAN, payload: { currentPlan, currentPrice } })
 	}
 
 	const handlePlanEnter = (e, currentPlan, currentPrice, index) => {
@@ -104,36 +71,16 @@ const AppContext = ({ children }) => {
 	}
 
 	const handlePreviousSteps = () => {
-		setSteps(prevSteps => {
-			const stepKeys = Object.keys(prevSteps)
-			const currentIndex = stepKeys.findIndex(key => prevSteps[key])
-
-			if (currentIndex > 0) {
-				const newIndex = currentIndex - 1
-				const oldSteps = stepKeys.reduce((nextKey, key, index) => {
-					nextKey[key] = index === newIndex
-					return nextKey
-				}, {})
-
-				if (oldSteps.stepOne && user.email) {
-					if (!emailRegex.test(user.email)) {
-						setEmailError('Email is invalid.')
-					}
-				}
-
-				return oldSteps
-			}
-			return prevSteps
-		})
+		dispatch({ type: PREVIOUS_STEP })
 	}
 
 	const handleNextClick = () => {
 		if (state.steps.stepOne && checkInputs()) {
 			handleNextSteps()
 		}
-		// if (steps.stepTwo && plan.name) {
-		// 	handleNextSteps()
-		// }
+		if (state.steps.stepTwo && state.plan.name) {
+			handleNextSteps()
+		}
 	}
 
 	const handlePreviousClick = () => {
@@ -148,16 +95,12 @@ const AppContext = ({ children }) => {
 		<GlobalContext.Provider
 			value={{
 				handleSubmit,
-				steps,
 				handleNextClick,
 				handlePlan,
 				buttonRef,
 				handleUser,
-
 				inputRef,
-
 				handlePreviousClick,
-				plan,
 				handlePlanEnter,
 				state,
 			}}>

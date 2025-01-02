@@ -27,7 +27,7 @@ const StepTwo = () => {
 								tabIndex='0'
 								role='button'
 								className={classNames(styles.btn, {
-									[styles.active]: plan.name === title,
+									[styles.active]: state.plan.name === title,
 								})}
 								key={index}
 								onClick={() => handlePlan({ title }, { price }, { index })}

@@ -1,3 +1,6 @@
+export const emailRegex =
+	/^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
+
 export const INITIAL_STATE = {
 	user: {
 		name: '',
@@ -29,11 +32,11 @@ export const reducer = (state, action) => {
 				},
 			}
 		case 'CHECK_INPUTS':
-			 return {
-					...state,
-					error: action.payload?.error || state.error,
-					emailError: action.payload?.emailError || state.emailError,
-				}
+			return {
+				...state,
+				error: action.payload?.error || state.error,
+				emailError: action.payload?.emailError || state.emailError,
+			}
 		case 'NEXT_STEP':
 			const stepKeys = Object.keys(state.steps)
 			const currentIndex = stepKeys.findIndex(key => state.steps[key])
@@ -50,7 +53,37 @@ export const reducer = (state, action) => {
 				}
 			}
 			return state
+		case 'PREVIOUS_STEP':
+			const prevKeys = Object.keys(state.steps)
+			const prevCurrentIndex = prevKeys.findIndex(key => state.steps[key])
 
+			if (prevCurrentIndex > 0) {
+				const newIndex = prevCurrentIndex - 1
+				const oldSteps = prevKeys.reduce((nextKey, key, index) => {
+					nextKey[key] = index === newIndex
+					return nextKey
+				}, {})
+
+				if (oldSteps.stepOne && state.user.email) {
+					if (!emailRegex.test(state.user.email)) {
+						setEmailError('Email is invalid.')
+					}
+				}
+
+				return {
+					...state,
+					steps: oldSteps,
+				}
+			}
+			return state
+		case 'SET_PLAN':
+			return {
+				...state,
+				plan: {
+					name: action.payload.currentPlan.title,
+					price: action.payload.currentPrice.price,
+				},
+			}
 		default:
 			return state
 	}

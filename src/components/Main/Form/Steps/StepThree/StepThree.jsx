@@ -3,16 +3,16 @@ import { useGlobalContext } from '../../../../../Context'
 import classNames from 'classnames'
 
 const StepThree = () => {
-	const { steps } = useGlobalContext()
+	const { state } = useGlobalContext()
 	return (
 		<>
 			<div
 				className={classNames(styles.box, {
-					[styles.current]: steps.stepThree,
-					show: steps.stepThree,
-					hide: !steps.stepThree,
+					[styles.current]: state.steps.stepThree,
+					show: state.steps.stepThree,
+					hide: !state.steps.stepThree,
 				})}
-				style={{ display: steps.stepThree ? 'block' : 'none' }}>
+				style={{ display: state.steps.stepThree ? 'block' : 'none' }}>
 				<h2 className={styles.title}>Pick add-ons</h2>
 				<p className={styles.desc}>
 					Add-ons help enhance your gaming experience.

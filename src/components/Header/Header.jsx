@@ -5,7 +5,7 @@ import { useGlobalContext } from '../../Context'
 import { headerData } from '../../data'
 
 const Header = () => {
-	const { steps } = useGlobalContext()
+	const { state } = useGlobalContext()
 	return (
 		<div className={styles.header}>
 			<img src={pattern} alt='' className={styles.headerPattern} />
@@ -14,7 +14,7 @@ const Header = () => {
 					return (
 						<p
 							className={classNames(styles.stepNumber, {
-								[styles.activeNumber]: steps[step],
+								[styles.activeNumber]: state.steps[step],
 							})}
 							key={index}>
 							{num}
