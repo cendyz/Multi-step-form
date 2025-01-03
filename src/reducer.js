@@ -1,3 +1,12 @@
+import {
+	SET_USER,
+	NEXT_STEP,
+	PREVIOUS_STEP,
+	CHECK_INPUTS,
+	SET_PLAN,
+	MONTH_YEAR_BTN,
+} from './actions'
+
 export const emailRegex =
 	/^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
 
@@ -20,12 +29,22 @@ export const defaultState = {
 		stepFour: false,
 	},
 	planBtn: false,
+	monthly: {
+		0: '$9/mo',
+		1: '$12/mo',
+		2: '$15/mo',
+	},
+	yearly: {
+		0: '$90/yr',
+		1: '$120/yr',
+		2: '$150/yr',
+	},
 	periodTime: 'Monthly',
 }
 
 export const reducer = (state, action) => {
 	switch (action.type) {
-		case 'SET_USER':
+		case SET_USER:
 			return {
 				...state,
 				user: {
@@ -33,13 +52,13 @@ export const reducer = (state, action) => {
 					[action.payload.name]: action.payload.value,
 				},
 			}
-		case 'CHECK_INPUTS':
+		case CHECK_INPUTS:
 			return {
 				...state,
 				error: action.payload?.error || state.error,
 				emailError: action.payload?.emailError || state.emailError,
 			}
-		case 'NEXT_STEP':
+		case NEXT_STEP:
 			const stepKeys = Object.keys(state.steps)
 			const currentIndex = stepKeys.findIndex(key => state.steps[key])
 
@@ -55,7 +74,7 @@ export const reducer = (state, action) => {
 				}
 			}
 			return state
-		case 'PREVIOUS_STEP':
+		case PREVIOUS_STEP:
 			const prevKeys = Object.keys(state.steps)
 			const prevCurrentIndex = prevKeys.findIndex(key => state.steps[key])
 
@@ -78,7 +97,7 @@ export const reducer = (state, action) => {
 				}
 			}
 			return state
-		case 'SET_PLAN':
+		case SET_PLAN:
 			return {
 				...state,
 				plan: {
@@ -86,13 +105,17 @@ export const reducer = (state, action) => {
 					price: action.payload.currentPrice.price,
 				},
 			}
-		case 'MONTH_YEAR_BTN':
+		case MONTH_YEAR_BTN:
 			const newPeriodTime = state.planBtn ? 'Monthly' : 'Yearly'
 
 			return {
 				...state,
+				plan: {
+					name: '',
+					price: '',
+				},
 				planBtn: !state.planBtn,
-				periodTime: newPeriodTime
+				periodTime: newPeriodTime,
 			}
 		default:
 			return state

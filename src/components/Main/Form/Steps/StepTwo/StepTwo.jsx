@@ -43,8 +43,17 @@ const StepTwo = () => {
 								<img src={icon} alt={alt} className={styles.icon} />
 								<div className={styles.descBox}>
 									<h3 className={styles.descTitle}>{title}</h3>
-									<p className={styles.price}>${price}/yr</p>
-									<p className={styles.free}>2 months free</p>
+									<p className={styles.price}>
+										{state.periodTime === 'Monthly'
+											? state.monthly[index]
+											: state.yearly[index]}
+									</p>
+									<p
+										className={classNames(styles.free, {
+											[styles.show]: state.periodTime === 'Yearly',
+										})}>
+										2 months free
+									</p>
 								</div>
 							</div>
 						)

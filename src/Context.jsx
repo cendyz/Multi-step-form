@@ -52,7 +52,7 @@ const AppContext = ({ children }) => {
 	}
 
 	const handlePlan = (currentPlan, currentPrice) => {
-		dispatch({ type: 'SET_PLAN', payload: { currentPlan, currentPrice } })
+		dispatch({ type: SET_PLAN, payload: { currentPlan, currentPrice } })
 	}
 
 	const handlePlanEnter = (e, currentPlan, currentPrice, index) => {
@@ -70,12 +70,13 @@ const AppContext = ({ children }) => {
 	}
 
 	const handleNextClick = () => {
-		if (state.steps.stepOne && checkInputs()) {
-			handleNextSteps()
-		}
-		if (state.steps.stepTwo && state.plan.name) {
-			handleNextSteps()
-		}
+		// if (state.steps.stepOne && checkInputs()) {
+		// 	handleNextSteps()
+		// }
+		// if (state.steps.stepTwo && state.plan.name) {
+		// 	handleNextSteps()
+		// }
+		console.log(state.plan);
 	}
 
 	const handlePreviousClick = () => {
