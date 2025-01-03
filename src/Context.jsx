@@ -1,24 +1,19 @@
-import {
-	createContext,
-	useContext,
-	useState,
-	useRef,
-	useReducer,
-} from 'react'
+import { createContext, useContext, useRef, useReducer } from 'react'
 
-import { INITIAL_STATE, reducer, emailRegex } from './reducer'
+import { defaultState, reducer, emailRegex } from './reducer'
 import {
 	SET_USER,
 	NEXT_STEP,
 	PREVIOUS_STEP,
 	CHECK_INPUTS,
 	SET_PLAN,
+	MONTH_YEAR_BTN,
 } from './actions'
 
 const GlobalContext = createContext()
 
 const AppContext = ({ children }) => {
-	const [state, dispatch] = useReducer(reducer, INITIAL_STATE)
+	const [state, dispatch] = useReducer(reducer, defaultState)
 	const buttonRef = useRef([])
 	const inputRef = useRef([])
 
@@ -57,7 +52,7 @@ const AppContext = ({ children }) => {
 	}
 
 	const handlePlan = (currentPlan, currentPrice) => {
-		dispatch({ type: SET_PLAN, payload: { currentPlan, currentPrice } })
+		dispatch({ type: 'SET_PLAN', payload: { currentPlan, currentPrice } })
 	}
 
 	const handlePlanEnter = (e, currentPlan, currentPrice, index) => {
@@ -87,6 +82,10 @@ const AppContext = ({ children }) => {
 		handlePreviousSteps()
 	}
 
+	const handleButtonPlan = () => {
+		dispatch({ type: MONTH_YEAR_BTN })
+	}
+
 	const handleSubmit = e => {
 		console.log(e.target)
 	}
@@ -103,6 +102,7 @@ const AppContext = ({ children }) => {
 				handlePreviousClick,
 				handlePlanEnter,
 				state,
+				handleButtonPlan,
 			}}>
 			{children}
 		</GlobalContext.Provider>

@@ -1,7 +1,7 @@
 export const emailRegex =
 	/^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
 
-export const INITIAL_STATE = {
+export const defaultState = {
 	user: {
 		name: '',
 		email: '',
@@ -14,11 +14,13 @@ export const INITIAL_STATE = {
 		price: '',
 	},
 	steps: {
-		stepOne: true,
-		stepTwo: false,
+		stepOne: false,
+		stepTwo: true,
 		stepThree: false,
 		stepFour: false,
 	},
+	planBtn: false,
+	periodTime: 'Monthly',
 }
 
 export const reducer = (state, action) => {
@@ -83,6 +85,14 @@ export const reducer = (state, action) => {
 					name: action.payload.currentPlan.title,
 					price: action.payload.currentPrice.price,
 				},
+			}
+		case 'MONTH_YEAR_BTN':
+			const newPeriodTime = state.planBtn ? 'Monthly' : 'Yearly'
+
+			return {
+				...state,
+				planBtn: !state.planBtn,
+				periodTime: newPeriodTime
 			}
 		default:
 			return state

@@ -15,6 +15,9 @@
 }
 
 .stepBox {
+	display: grid;
+	grid-template-columns: repeat(4, auto);
+	margin: 0 auto;
 	margin-top: 1.7em;
 	column-gap: 1em;
 }

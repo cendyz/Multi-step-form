@@ -60,3 +60,49 @@
 	color: $marine-blue;
 	font-weight: $weight-500;
 }
+
+.periodTime {
+	padding: 0.7em 0;
+	display: flex;
+	justify-content: center;
+	column-gap: 1em;
+	align-items: center;
+	background-color: $alabaster;
+	border-radius: 0.6em;
+}
+
+.periodText {
+	font-weight: $weight-500;
+	color: $cool-gray;
+	transition: color 0.2s;
+}
+
+.periodBtn {
+	position: relative;
+	padding: 0.9em 2em;
+	background-color: $marine-blue;
+	border-radius: 1em;
+
+	&::before {
+		position: absolute;
+		content: '';
+		top: 50%;
+		left: 8%;
+		transform: translateY(-50%);
+		width: 16px;
+		height: 16px;
+		background-color: #fff;
+		border-radius: 50%;
+		transition: left 0.4s;
+	}
+}
+
+.activeBtn {
+	color: $marine-blue;
+}
+
+.btnPosition {
+	&::before {
+		left: 63%;
+	}
+}

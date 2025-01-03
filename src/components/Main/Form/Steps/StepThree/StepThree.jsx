@@ -18,10 +18,10 @@ const StepThree = () => {
 					Add-ons help enhance your gaming experience.
 				</p>
 				<div className={styles.btnsBox}>
-					<label htmlFor='online'>
+					<div className={styles.inputBox}>
 						<input type='checkbox' />
 						<span className={styles.midText}></span>
-					</label>
+					</div>
 				</div>
 			</div>
 		</>

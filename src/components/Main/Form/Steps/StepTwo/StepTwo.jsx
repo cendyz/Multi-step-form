@@ -4,8 +4,13 @@ import { plansData } from '../../../../../data'
 import { useGlobalContext } from '../../../../../Context'
 
 const StepTwo = () => {
-	const { handlePlan, buttonRef, plan, handlePlanEnter, state } =
-		useGlobalContext()
+	const {
+		handlePlan,
+		buttonRef,
+		handlePlanEnter,
+		state,
+		handleButtonPlan,
+	} = useGlobalContext()
 
 	return (
 		<>
@@ -44,6 +49,26 @@ const StepTwo = () => {
 							</div>
 						)
 					})}
+					<div className={styles.periodTime}>
+						<p
+							className={classNames(styles.periodText, {
+								[styles.activeBtn]: !state.planBtn,
+							})}>
+							Monthly
+						</p>
+						<button
+							className={classNames(styles.periodBtn, {
+								[styles.btnPosition]: state.planBtn,
+							})}
+							type='button'
+							onClick={handleButtonPlan}></button>
+						<p
+							className={classNames(styles.periodText, {
+								[styles.activeBtn]: state.planBtn,
+							})}>
+							Yearly
+						</p>
+					</div>
 				</div>
 			</div>
 		</>
