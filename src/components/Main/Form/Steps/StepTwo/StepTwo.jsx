@@ -33,6 +33,7 @@ const StepTwo = () => {
 								role='button'
 								className={classNames(styles.btn, {
 									[styles.active]: state.plan.name === title,
+									[styles.redBorder]: state.planBorder === true,
 								})}
 								key={index}
 								onClick={() => handlePlan({ title }, { price }, { index })}

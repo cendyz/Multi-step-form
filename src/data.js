@@ -56,3 +56,18 @@ export const plansData = [
 		alt: 'Gamepad icon',
 	},
 ]
+
+export const addonsData = [
+	{
+		title: 'Online service',
+		text: 'Access to multiplayer games',
+	},
+	{
+		title: 'Larger storage',
+		text: 'Extra 1TB of cloud save',
+	},
+	{
+		title: 'Customizable Profile',
+		text: 'Custom theme on your profile',
+	},
+]

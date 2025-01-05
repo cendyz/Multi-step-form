@@ -35,6 +35,10 @@
 	border-color: $marine-blue;
 }
 
+.redBorder {
+	border-color: hsl(354, 84%, 57%);
+}
+
 .icon {
 	align-self: start;
 }
@@ -43,6 +47,7 @@
 	text-align: left;
 	flex-direction: column;
 	row-gap: 0.3em;
+	
 }
 
 .descTitle {
@@ -56,16 +61,14 @@
 }
 
 .free {
+	display: none;
 	font-size: 1.3rem;
 	color: $marine-blue;
 	font-weight: $weight-500;
-	opacity: 0;
-	transition: opacity 0.1s;
 }
 
 .show {
-	visibility: visible;
-	opacity: 1;
+	display: block;
 }
 
 .periodTime {

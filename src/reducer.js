@@ -5,6 +5,8 @@ import {
 	CHECK_INPUTS,
 	SET_PLAN,
 	MONTH_YEAR_BTN,
+	CHECK_PLAN,
+	SET_ADDON,
 } from './actions'
 
 export const emailRegex =
@@ -24,11 +26,12 @@ export const defaultState = {
 	},
 	steps: {
 		stepOne: false,
-		stepTwo: true,
-		stepThree: false,
+		stepTwo: false,
+		stepThree: true,
 		stepFour: false,
 	},
 	planBtn: false,
+	planBorder: false,
 	monthly: {
 		0: '$9/mo',
 		1: '$12/mo',
@@ -40,6 +43,23 @@ export const defaultState = {
 		2: '$150/yr',
 	},
 	periodTime: 'Monthly',
+	addons: {
+		active: {
+			0: false,
+			1: false,
+			2: false
+		},
+		monthly: {
+			0: '$1/mo',
+			1: '$2/mo',
+			2: '$2/mo',
+		},
+		yearly: {
+			0: '$10/yr',
+			1: '$20/yr',
+			2: '$20/yr',
+		},
+	},
 }
 
 export const reducer = (state, action) => {
@@ -117,6 +137,22 @@ export const reducer = (state, action) => {
 				planBtn: !state.planBtn,
 				periodTime: newPeriodTime,
 			}
+		case CHECK_PLAN:
+			return {
+				...state,
+				planBorder: actualBorderPlan,
+			}
+			case SET_ADDON:
+				return {
+					...state,
+					addons: {
+						...state.addons,
+						active: {
+							...state.addons.active,
+							[action.payload]: !state.addons.active[action.payload],
+						},
+					},
+				}
 		default:
 			return state
 	}

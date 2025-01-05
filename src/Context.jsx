@@ -8,6 +8,8 @@ import {
 	CHECK_INPUTS,
 	SET_PLAN,
 	MONTH_YEAR_BTN,
+	CHECK_PLAN,
+	SET_ADDON,
 } from './actions'
 
 const GlobalContext = createContext()
@@ -16,6 +18,7 @@ const AppContext = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, defaultState)
 	const buttonRef = useRef([])
 	const inputRef = useRef([])
+	const addonRef = useRef([])
 
 	const handleUser = (e, index) => {
 		if (inputRef.current[index]) {
@@ -69,14 +72,26 @@ const AppContext = ({ children }) => {
 		dispatch({ type: PREVIOUS_STEP })
 	}
 
+	const checkPlanBorder = () => {
+		const actualBorderPlan = state.plan.name === '' ? true : false
+		dispatch({
+			type: CHECK_PLAN,
+			payload: {
+				planBorder: actualBorderPlan,
+			},
+		})
+		return state.plan.name === ''
+	}
+
 	const handleNextClick = () => {
 		// if (state.steps.stepOne && checkInputs()) {
 		// 	handleNextSteps()
 		// }
-		// if (state.steps.stepTwo && state.plan.name) {
+		// if (state.steps.stepTwo && state.plan.name && !checkPlanBorder()) {
 		// 	handleNextSteps()
 		// }
-		console.log(state.plan);
+
+		console.log(state.plan.monthly[0])
 	}
 
 	const handlePreviousClick = () => {
@@ -85,6 +100,13 @@ const AppContext = ({ children }) => {
 
 	const handleButtonPlan = () => {
 		dispatch({ type: MONTH_YEAR_BTN })
+	}
+
+	const handleActiveAddon = (index) => {
+		dispatch({ type: SET_ADDON, payload: index })
+		if (addonRef.current[index]) {
+			addonRef.current[index].focus()
+		}
 	}
 
 	const handleSubmit = e => {
@@ -104,6 +126,7 @@ const AppContext = ({ children }) => {
 				handlePlanEnter,
 				state,
 				handleButtonPlan,
+				handleActiveAddon, addonRef
 			}}>
 			{children}
 		</GlobalContext.Provider>

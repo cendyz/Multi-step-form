@@ -1,9 +1,11 @@
 import styles from './StepThree.module.scss'
 import { useGlobalContext } from '../../../../../Context'
 import classNames from 'classnames'
+import { addonsData } from '../../../../../data'
+import { nanoid } from 'nanoid'
 
 const StepThree = () => {
-	const { state } = useGlobalContext()
+	const { state, handleActiveAddon, addonRef } = useGlobalContext()
 	return (
 		<>
 			<div
@@ -18,10 +20,37 @@ const StepThree = () => {
 					Add-ons help enhance your gaming experience.
 				</p>
 				<div className={styles.btnsBox}>
-					<div className={styles.inputBox}>
-						<input type='checkbox' />
-						<span className={styles.midText}></span>
-					</div>
+					{addonsData.map(({ title, text }, index) => {
+						return (
+							<div
+								className={styles.inputBox}
+								key={nanoid()}
+								role='button'
+								tabIndex='0'
+								onClick={() => handleActiveAddon(index)}
+								onKeyDown={e => {
+									if (e.key === 'Enter') handleActiveAddon(index)
+								}}
+								ref={el => (addonRef.current[index] = el)}>
+								<input
+									type='checkbox'
+									className={styles.input}
+									checked={state.addons.active[index]}
+									readOnly
+									onMouseDown={e => e.preventDefault()}
+								/>
+								<div className={styles.midText}>
+									<h3 className={styles.addonTitle}>{title}</h3>
+									<p className={styles.addonText}>{text}</p>
+								</div>
+								<p className={styles.price}>
+									{state.periodTime === 'Monthly'
+										? state.addons.monthly[index]
+										: state.addons.yearly[index]}
+								</p>
+							</div>
+						)
+					})}
 				</div>
 			</div>
 		</>

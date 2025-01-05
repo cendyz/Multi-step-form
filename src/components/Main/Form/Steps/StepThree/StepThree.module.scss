@@ -1,3 +1,53 @@
 @use '../../../../../sass/utilities' as *;
 
 @include titleDesc;
+
+.inputBox {
+	margin-bottom: 1em;
+	padding: 1em;
+	display: flex;
+	align-items: center;
+	border: 1px solid $cool-gray;
+	border-radius: 0.6em;
+	cursor: pointer;
+	transition: border 0.1s, background-color 0.1s;
+
+	&:focus {
+		background-color: $magnolia;
+		border-color: $marine-blue;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+.input {
+	height: 19px;
+	width: 19px;
+	accent-color: $purplish-blue;
+}
+
+.midText {
+	margin-left: 0.8em;
+}
+
+.addonTitle {
+	color: $marine-blue;
+	font-size: 1.4rem;
+}
+
+.addonText,
+.price {
+	font-size: 1.2rem;
+}
+
+.addonText {
+	color: $cool-gray;
+}
+
+.price {
+	margin-left: auto;
+	color: $purplish-blue;
+	font-weight: $weight-500;
+}
