@@ -1,7 +1,6 @@
 import arcadeIcon from './images/icon-arcade.svg'
 import advancedIcon from './images/icon-advanced.svg'
 import proIcon from './images/icon-pro.svg'
-
 export const headerData = [
 	{
 		step: 'stepOne',
