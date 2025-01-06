@@ -10,6 +10,7 @@ import {
 	MONTH_YEAR_BTN,
 	CHECK_PLAN,
 	SET_ADDON,
+	SET_ADDON_ERROR,
 } from './actions'
 
 const GlobalContext = createContext()
@@ -18,7 +19,6 @@ const AppContext = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, defaultState)
 	const buttonRef = useRef([])
 	const inputRef = useRef([])
-	const addonRef = useRef([])
 
 	const handleUser = (e, index) => {
 		if (inputRef.current[index]) {
@@ -80,18 +80,32 @@ const AppContext = ({ children }) => {
 				planBorder: actualBorderPlan,
 			},
 		})
-		return state.plan.name === ''
+		return actualBorderPlan
+	}
+
+	const checkAddonSelect = () => {
+		const hasFalse = Object.values(state.addons.active).every(
+			value => value === false
+		)
+
+		dispatch({
+			type: SET_ADDON_ERROR,
+			payload: hasFalse,
+		})
+		return hasFalse
 	}
 
 	const handleNextClick = () => {
 		// if (state.steps.stepOne && checkInputs()) {
 		// 	handleNextSteps()
 		// }
-		// if (state.steps.stepTwo && state.plan.name && !checkPlanBorder()) {
-		// 	handleNextSteps()
-		// }
-
-		console.log(state.plan.monthly[0])
+		// checkPlanBorder()
+		if (state.steps.stepTwo && !checkPlanBorder()) {
+			handleNextSteps()
+		}
+		if (state.steps.stepThree && !checkAddonSelect()) {
+			handleNextSteps()
+		}
 	}
 
 	const handlePreviousClick = () => {
@@ -102,11 +116,8 @@ const AppContext = ({ children }) => {
 		dispatch({ type: MONTH_YEAR_BTN })
 	}
 
-	const handleActiveAddon = (index) => {
+	const handleActiveAddon = index => {
 		dispatch({ type: SET_ADDON, payload: index })
-		if (addonRef.current[index]) {
-			addonRef.current[index].focus()
-		}
 	}
 
 	const handleSubmit = e => {
@@ -126,7 +137,7 @@ const AppContext = ({ children }) => {
 				handlePlanEnter,
 				state,
 				handleButtonPlan,
-				handleActiveAddon, addonRef
+				handleActiveAddon,
 			}}>
 			{children}
 		</GlobalContext.Provider>

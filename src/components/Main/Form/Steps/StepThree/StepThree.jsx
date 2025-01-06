@@ -5,7 +5,7 @@ import { addonsData } from '../../../../../data'
 import { nanoid } from 'nanoid'
 
 const StepThree = () => {
-	const { state, handleActiveAddon, addonRef } = useGlobalContext()
+	const { state, handleActiveAddon} = useGlobalContext()
 	return (
 		<>
 			<div
@@ -23,15 +23,19 @@ const StepThree = () => {
 					{addonsData.map(({ title, text }, index) => {
 						return (
 							<div
-								className={styles.inputBox}
+								className={classNames(styles.inputBox, {
+									[styles.selected]: state.addons.active[index],
+								})}
+								style={{
+									borderColor: state.addons.error && 'hsl(354, 84%, 57%)',
+								}}
 								key={nanoid()}
 								role='button'
 								tabIndex='0'
 								onClick={() => handleActiveAddon(index)}
 								onKeyDown={e => {
 									if (e.key === 'Enter') handleActiveAddon(index)
-								}}
-								ref={el => (addonRef.current[index] = el)}>
+								}}>
 								<input
 									type='checkbox'
 									className={styles.input}

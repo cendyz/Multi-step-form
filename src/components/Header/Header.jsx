@@ -21,7 +21,7 @@ const Header = () => {
 						</p>
 					)
 				})}
-				\
+				
 			</div>
 		</div>
 	)

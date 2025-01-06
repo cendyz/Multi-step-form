@@ -7,6 +7,7 @@ import {
 	MONTH_YEAR_BTN,
 	CHECK_PLAN,
 	SET_ADDON,
+	SET_ADDON_ERROR,
 } from './actions'
 
 export const emailRegex =
@@ -26,8 +27,8 @@ export const defaultState = {
 	},
 	steps: {
 		stepOne: false,
-		stepTwo: false,
-		stepThree: true,
+		stepTwo: true,
+		stepThree: false,
 		stepFour: false,
 	},
 	planBtn: false,
@@ -47,7 +48,7 @@ export const defaultState = {
 		active: {
 			0: false,
 			1: false,
-			2: false
+			2: false,
 		},
 		monthly: {
 			0: '$1/mo',
@@ -59,6 +60,7 @@ export const defaultState = {
 			1: '$20/yr',
 			2: '$20/yr',
 		},
+		error: false,
 	},
 }
 
@@ -124,6 +126,7 @@ export const reducer = (state, action) => {
 					name: action.payload.currentPlan.title,
 					price: action.payload.currentPrice.price,
 				},
+				planBorder: false,
 			}
 		case MONTH_YEAR_BTN:
 			const newPeriodTime = state.planBtn ? 'Monthly' : 'Yearly'
@@ -140,19 +143,28 @@ export const reducer = (state, action) => {
 		case CHECK_PLAN:
 			return {
 				...state,
-				planBorder: actualBorderPlan,
+				planBorder: action.payload.planBorder,
 			}
-			case SET_ADDON:
-				return {
-					...state,
-					addons: {
-						...state.addons,
-						active: {
-							...state.addons.active,
-							[action.payload]: !state.addons.active[action.payload],
-						},
+		case SET_ADDON:
+			return {
+				...state,
+				addons: {
+					...state.addons,
+					error: false,
+					active: {
+						...state.addons.active,
+						[action.payload]: !state.addons.active[action.payload],
 					},
-				}
+				},
+			}
+		case SET_ADDON_ERROR:
+			return {
+				...state,
+				addons: {
+					...state.addons,
+					error: action.payload, // Ustawia `error` na podstawie `payload`
+				},
+			}
 		default:
 			return state
 	}
