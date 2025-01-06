@@ -1,6 +1,6 @@
 import styles from './Form.module.scss'
 import { useGlobalContext } from '../../../Context'
-import { StepOne, StepTwo, StepThree } from './Steps'
+import { StepOne, StepTwo, StepThree, StepFour } from './Steps'
 
 const Form = () => {
 	const { handleSubmit } = useGlobalContext()
@@ -12,6 +12,7 @@ const Form = () => {
 			<StepOne />
 			<StepTwo />
 			<StepThree />
+			<StepFour />
 		</form>
 	)
 }

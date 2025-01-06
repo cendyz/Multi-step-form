@@ -1,0 +1,65 @@
+@use '../../../../../sass/utilities' as *;
+
+@include titleDesc;
+
+.botBox,
+.boxItemsInfo {
+	padding: 1em;
+}
+
+.boxItemsInfo {
+	background-color: $magnolia;
+	border-radius: 0.7em;
+}
+
+.topBox,
+.midBox,
+.botBox {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.topBox {
+	padding-bottom: 0.7em;
+	border-bottom: 1px solid $light-gray;
+}
+
+.leftTitle,
+.btnChange,
+.topPrice {
+	font-size: 1.4rem;
+}
+
+.leftTitle,
+.topPrice {
+	color: $marine-blue;
+	font-weight: $weight-700;
+}
+
+.btnChange,
+.midTitle,
+.botTitle {
+	color: $cool-gray;
+}
+
+.btnChange {
+	text-decoration: underline;
+}
+
+.midBox,
+.botBox {
+	font-size: 1.25rem;
+	margin-top: 0.7em;
+}
+
+.midPrice {
+	color: rgb(29, 29, 110);
+	font-weight: $weight-500;
+}
+
+.botPrice {
+	color: $purplish-blue;
+	font-weight: $weight-700;
+	font-size: 1.5rem;
+}

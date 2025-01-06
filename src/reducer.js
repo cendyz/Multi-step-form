@@ -27,9 +27,9 @@ export const defaultState = {
 	},
 	steps: {
 		stepOne: false,
-		stepTwo: true,
+		stepTwo: false,
 		stepThree: false,
-		stepFour: false,
+		stepFour: true,
 	},
 	planBtn: false,
 	planBorder: false,
