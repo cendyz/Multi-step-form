@@ -30,8 +30,8 @@ const StepThree = () => {
 									borderColor: state.addons.error && 'hsl(354, 84%, 57%)',
 								}}
 								key={nanoid()}
-								role='button'
-								tabIndex='0'
+								// role='button'
+								// tabIndex='0'
 								onClick={() =>
 									handleActiveAddon(
 										index,
@@ -40,16 +40,23 @@ const StepThree = () => {
 											? state.addons.monthly[index]
 											: state.addons.yearly[index]
 									)
-								}
-								onKeyDown={e => {
-									if (e.key === 'Enter') handleActiveAddon(index)
-								}}>
+								}>
 								<input
 									type='checkbox'
 									className={styles.input}
 									checked={state.addons.active[index]}
-									readOnly
 									onMouseDown={e => e.preventDefault()}
+									onKeyDown={e => {
+										if (e.key === 'Enter')
+											handleActiveAddon(
+												index,
+												title,
+												state.periodTime === 'Monthly'
+													? state.addons.monthly[index]
+													: state.addons.yearly[index]
+											)
+									}}
+									onChange={() => {}}
 								/>
 								<div className={styles.midText}>
 									<h3 className={styles.addonTitle}>{title}</h3>

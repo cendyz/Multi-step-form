@@ -24,7 +24,6 @@ const BottomBar = () => {
 					[styles.confirmBtn]: state.steps.stepFour,
 				})}
 				type='button'
-				id='myForm'
 				onClick={handleNextClick}>
 				{state.steps.stepFour ? 'Confirm' : 'Next Step'}
 			</button>

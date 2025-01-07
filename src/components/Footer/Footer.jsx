@@ -23,7 +23,6 @@ const Footer = () => {
 					[styles.confirmBtn]: state.steps.stepFour,
 				})}
 				type={state.steps.stepFour ? 'submit' : 'button'}
-				id='myForm'
 				onClick={handleNextClick}>
 				{state.steps.stepFour ? 'Confirm' : 'Next Step'}
 			</button>
