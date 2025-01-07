@@ -1,0 +1,15 @@
+@use '../../../../sass/utilities' as *;
+
+.footer {
+	display: none;
+}
+
+@media (min-width: 992px) {
+	@include footerBar;
+	.footer {
+		padding: 0;
+		position: static;
+		align-self: flex-end;
+		height: fit-content;
+	}
+}

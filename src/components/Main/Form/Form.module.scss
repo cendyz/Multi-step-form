@@ -15,3 +15,16 @@
 	background-color: $white;
 	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+
+@media (min-width: 992px) {
+	.form {
+		padding: 1.5em 6.5em;
+		position: relative;
+		transform: translateX(0);
+		left: 0;
+		top: 0;
+		height: 568px;
+		max-width: 718px;
+		box-shadow: none;
+	}
+}

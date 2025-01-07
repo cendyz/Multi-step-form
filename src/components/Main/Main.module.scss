@@ -1,0 +1,15 @@
+@use '../../sass/utilities' as *;
+
+@media (min-width: 992px) {
+	.main {
+		padding: 1em;
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		max-width: 992px;
+		height: fit-content;
+		background-color: $white;
+		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+		border-radius: 1em;
+	}
+}

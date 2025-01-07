@@ -1,5 +1,7 @@
 @use '../../sass/utilities' as *;
 
+@include number;
+
 .headerPattern {
 	position: fixed;
 	z-index: -1;
@@ -8,37 +10,16 @@
 	width: 100%;
 }
 
-.stepBox,
-.stepNumber {
-	display: flex;
-	justify-content: center;
-}
-
 .stepBox {
 	display: grid;
+	justify-content: center;
 	grid-template-columns: repeat(4, auto);
 	margin: 0 auto;
 	margin-top: 1.7em;
 	column-gap: 1em;
 }
 
-.stepNumber {
-	align-items: center;
-	width: 2.5em;
-	height: 2.5em;
-	color: $white;
-	font-weight: $weight-700;
-	border: 2px solid $white;
-	border-radius: 50%;
-	user-select: none;
-	transition: border 0.1s, background-color 0.1s, color 0.1s;
-}
 
-.activeNumber {
-	border: 2px solid $pastel-blue;
-	background-color: $pastel-blue;
-	color: $marine-blue;
-}
 
 @media (min-width: 992px) {
 	.header {

@@ -5,18 +5,22 @@ export const headerData = [
 	{
 		step: 'stepOne',
 		num: 1,
+		desc: 'your info'
 	},
 	{
 		step: 'stepTwo',
 		num: 2,
+		desc: 'select plan'
 	},
 	{
 		step: 'stepThree',
 		num: 3,
+		desc: 'add-ons'
 	},
 	{
 		step: 'stepFour',
 		num: 4,
+		desc: 'summary'
 	},
 ]
 

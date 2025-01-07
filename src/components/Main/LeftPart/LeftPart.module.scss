@@ -1,3 +1,39 @@
-.leftPart {
+@use '../../../sass/utilities' as *;
+
+.leftBox {
 	display: none;
+}
+
+@media (min-width: 992px) {
+	@include number;
+	.leftBox {
+		position: relative;
+		display: block;
+	}
+
+	.stepBox {
+		display: grid;
+		row-gap: 1.7em;
+		position: absolute;
+		top: 7%;
+		left: 10%;
+	}
+
+	.numBox {
+		display: flex;
+		column-gap: 1em;
+	}
+
+	.stepNumBox, .stepDescInfo {
+		text-transform: uppercase;
+	}
+
+	.stepNumBox {
+		font-size: 1.4rem;
+		color: $cool-gray;
+	}
+
+	.stepDescInfo {
+		color: $white;
+	}
 }
