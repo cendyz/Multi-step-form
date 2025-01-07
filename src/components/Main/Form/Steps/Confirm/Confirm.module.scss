@@ -1,0 +1,17 @@
+@use '../../../../../sass/utilities' as *;
+
+@include titleDesc;
+
+.box {
+	padding: 3em 0;
+	text-align: center;
+}
+
+.img {
+	margin-bottom: 1em;
+	width: 3.1em;
+}
+
+.desc {
+	font-size: 1.54rem;
+}

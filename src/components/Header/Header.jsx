@@ -14,14 +14,15 @@ const Header = () => {
 					return (
 						<p
 							className={classNames(styles.stepNumber, {
-								[styles.activeNumber]: state.steps[step],
+								[styles.activeNumber]:
+									state.steps[step] ||
+									(step === 'stepFour' && state.steps.confirm),
 							})}
 							key={index}>
 							{num}
 						</p>
 					)
 				})}
-				
 			</div>
 		</div>
 	)

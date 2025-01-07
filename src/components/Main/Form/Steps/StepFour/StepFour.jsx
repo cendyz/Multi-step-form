@@ -31,7 +31,7 @@ const StepFour = () => {
 					</div>
 					<p className={styles.topPrice}>{state.plan.price}</p>
 				</div>
-				{state.items.map(({title, price}, index) => {
+				{state.items.map(({ title, price }, index) => {
 					return (
 						<div className={styles.midBox} key={index}>
 							<p className={styles.midTitle}>{title}</p>
@@ -42,7 +42,9 @@ const StepFour = () => {
 			</div>
 			<div className={styles.botBox}>
 				<p className={styles.botTitle}>Total (per year)</p>
-				<p className={styles.botPrice}>$120/yr</p>
+				<p className={styles.botPrice}>
+					${state.totalSum}/{state.periodTime === 'Monthly' ? 'mo' : 'yr'}
+				</p>
 			</div>
 		</div>
 	)

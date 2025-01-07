@@ -1,4 +1,10 @@
-import { createContext, useContext, useRef, useReducer } from 'react'
+import {
+	createContext,
+	useContext,
+	useRef,
+	useReducer,
+	useEffect,
+} from 'react'
 
 import { defaultState, reducer } from './reducer'
 import {
@@ -14,6 +20,7 @@ import {
 	MODIFY_PLAN,
 	ADD_PLAN,
 	REMOVE_PLAN,
+	CALCULATE_TOTAL,
 } from './actions'
 
 const GlobalContext = createContext()
@@ -71,7 +78,7 @@ const AppContext = ({ children }) => {
 			state.periodTime === 'Monthly'
 				? state.monthly[index]
 				: state.yearly[index]
-		
+
 		dispatch({ type: SET_PLAN, payload: { currentPlan, newPrice } })
 	}
 
@@ -122,6 +129,9 @@ const AppContext = ({ children }) => {
 		if (state.steps.stepThree && !checkAddonSelect()) {
 			handleNextSteps()
 		}
+		if (state.steps.stepFour) {
+			handleNextSteps()
+		}
 	}
 
 	const handlePreviousClick = () => {
@@ -147,6 +157,26 @@ const AppContext = ({ children }) => {
 	const handleChangePlan = () => {
 		dispatch({ type: MODIFY_PLAN })
 	}
+
+	const handleCalculate = () => {
+		const planCost = state.plan.price.replace(/[^0-9]/g, '')
+		const numberPlanCost = parseFloat(planCost)
+		let totalCost = 0
+		let sum = 0
+
+		state.items.forEach(item => {
+			const newAddonsCost = item.price.replace(/[^0-9]/g, '')
+			const newAddonsCostNumber = parseFloat(newAddonsCost)
+			totalCost += newAddonsCostNumber
+		})
+
+		sum = totalCost + numberPlanCost
+		dispatch({ type: CALCULATE_TOTAL, payload: sum })
+	}
+
+	useEffect(() => {
+		handleCalculate()
+	}, [state.plan.price, state.items])
 
 	const handleSubmit = e => {
 		console.log(e.target)

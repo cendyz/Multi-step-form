@@ -11,6 +11,7 @@ import {
 	MODIFY_PLAN,
 	REMOVE_PLAN,
 	ADD_PLAN,
+	CALCULATE_TOTAL,
 } from './actions'
 
 export const defaultState = {
@@ -31,6 +32,7 @@ export const defaultState = {
 		stepTwo: false,
 		stepThree: false,
 		stepFour: false,
+		confirm: false,
 	},
 	planBtn: false,
 	planBorder: false,
@@ -64,6 +66,7 @@ export const defaultState = {
 		error: false,
 	},
 	items: [],
+	totalSum: 0,
 }
 
 export const reducer = (state, action) => {
@@ -191,6 +194,11 @@ export const reducer = (state, action) => {
 				items: state.items.filter(
 					item => item.title !== action.payload.title
 				),
+			}
+		case CALCULATE_TOTAL:
+			return {
+				...state,
+				totalSum: action.payload,
 			}
 		default:
 			return state
