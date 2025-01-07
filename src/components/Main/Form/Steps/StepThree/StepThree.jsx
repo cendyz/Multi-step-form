@@ -32,7 +32,15 @@ const StepThree = () => {
 								key={nanoid()}
 								role='button'
 								tabIndex='0'
-								onClick={() => handleActiveAddon(index)}
+								onClick={() =>
+									handleActiveAddon(
+										index,
+										title,
+										state.periodTime === 'Monthly'
+											? state.addons.monthly[index]
+											: state.addons.yearly[index]
+									)
+								}
 								onKeyDown={e => {
 									if (e.key === 'Enter') handleActiveAddon(index)
 								}}>

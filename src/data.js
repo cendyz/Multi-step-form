@@ -38,19 +38,16 @@ export const stepOneData = [
 export const plansData = [
 	{
 		title: 'Arcade',
-		price: 90,
 		icon: arcadeIcon,
 		alt: 'Joystick icon',
 	},
 	{
 		title: 'Advanced',
-		price: 120,
 		icon: advancedIcon,
 		alt: 'Old console gamepad icon',
 	},
 	{
 		title: 'Pro',
-		price: 150,
 		icon: proIcon,
 		alt: 'Gamepad icon',
 	},

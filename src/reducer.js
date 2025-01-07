@@ -8,10 +8,10 @@ import {
 	CHECK_PLAN,
 	SET_ADDON,
 	SET_ADDON_ERROR,
+	MODIFY_PLAN,
+	REMOVE_PLAN,
+	ADD_PLAN,
 } from './actions'
-
-export const emailRegex =
-	/^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
 
 export const defaultState = {
 	user: {
@@ -21,15 +21,16 @@ export const defaultState = {
 	},
 	error: [false, false, false],
 	emailError: 'This field is required.',
+	phoneError: 'This field is required.',
 	plan: {
 		name: '',
 		price: '',
 	},
 	steps: {
-		stepOne: false,
+		stepOne: true,
 		stepTwo: false,
 		stepThree: false,
-		stepFour: true,
+		stepFour: false,
 	},
 	planBtn: false,
 	planBorder: false,
@@ -62,6 +63,7 @@ export const defaultState = {
 		},
 		error: false,
 	},
+	items: [],
 }
 
 export const reducer = (state, action) => {
@@ -79,6 +81,7 @@ export const reducer = (state, action) => {
 				...state,
 				error: action.payload?.error || state.error,
 				emailError: action.payload?.emailError || state.emailError,
+				phoneError: action.payload?.phoneError || state.phoneError,
 			}
 		case NEXT_STEP:
 			const stepKeys = Object.keys(state.steps)
@@ -107,12 +110,6 @@ export const reducer = (state, action) => {
 					return nextKey
 				}, {})
 
-				if (oldSteps.stepOne && state.user.email) {
-					if (!emailRegex.test(state.user.email)) {
-						setEmailError('Email is invalid.')
-					}
-				}
-
 				return {
 					...state,
 					steps: oldSteps,
@@ -124,10 +121,11 @@ export const reducer = (state, action) => {
 				...state,
 				plan: {
 					name: action.payload.currentPlan.title,
-					price: action.payload.currentPrice.price,
+					price: action.payload.newPrice,
 				},
 				planBorder: false,
 			}
+
 		case MONTH_YEAR_BTN:
 			const newPeriodTime = state.planBtn ? 'Monthly' : 'Yearly'
 
@@ -139,6 +137,14 @@ export const reducer = (state, action) => {
 				},
 				planBtn: !state.planBtn,
 				periodTime: newPeriodTime,
+				addons: {
+					...state.addons,
+					active: Object.keys(state.addons.active).reduce((acc, key) => {
+						acc[key] = false
+						return acc
+					}, {}),
+				},
+				items: [],
 			}
 		case CHECK_PLAN:
 			return {
@@ -162,8 +168,29 @@ export const reducer = (state, action) => {
 				...state,
 				addons: {
 					...state.addons,
-					error: action.payload, // Ustawia `error` na podstawie `payload`
+					error: action.payload,
 				},
+			}
+		case MODIFY_PLAN:
+			return {
+				...state,
+				steps: {
+					...state.steps,
+					stepFour: false,
+					stepTwo: true,
+				},
+			}
+		case ADD_PLAN:
+			return {
+				...state,
+				items: [...state.items, action.payload],
+			}
+		case REMOVE_PLAN:
+			return {
+				...state,
+				items: state.items.filter(
+					item => item.title !== action.payload.title
+				),
 			}
 		default:
 			return state

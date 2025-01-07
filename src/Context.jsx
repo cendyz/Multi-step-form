@@ -1,6 +1,6 @@
 import { createContext, useContext, useRef, useReducer } from 'react'
 
-import { defaultState, reducer, emailRegex } from './reducer'
+import { defaultState, reducer } from './reducer'
 import {
 	SET_USER,
 	NEXT_STEP,
@@ -11,6 +11,9 @@ import {
 	CHECK_PLAN,
 	SET_ADDON,
 	SET_ADDON_ERROR,
+	MODIFY_PLAN,
+	ADD_PLAN,
+	REMOVE_PLAN,
 } from './actions'
 
 const GlobalContext = createContext()
@@ -19,6 +22,8 @@ const AppContext = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, defaultState)
 	const buttonRef = useRef([])
 	const inputRef = useRef([])
+	const emailRegex = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/
+	const phoneRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/
 
 	const handleUser = (e, index) => {
 		if (inputRef.current[index]) {
@@ -32,7 +37,8 @@ const AppContext = ({ children }) => {
 
 	const checkInputs = () => {
 		const newError = [false, false, false]
-		let localEmailError = 'This field is required.'
+		let localEmailError
+		let localPhoneError
 
 		if (state.user.name === '') newError[0] = true
 		if (state.user.email === '') {
@@ -41,26 +47,37 @@ const AppContext = ({ children }) => {
 			newError[1] = true
 			localEmailError = 'Email is invalid.'
 		}
-		if (state.user.phone === '') newError[2] = true
+		if (state.user.phone === '') {
+			newError[2] = true
+		} else if (!phoneRegex.test(state.user.phone)) {
+			newError[2] = true
+			localPhoneError = 'Phone number is invalid'
+		}
 
 		dispatch({
 			type: CHECK_INPUTS,
 			payload: {
 				error: newError,
 				emailError: localEmailError,
+				phoneError: localPhoneError,
 			},
 		})
 
 		return !newError.includes(true)
 	}
 
-	const handlePlan = (currentPlan, currentPrice) => {
-		dispatch({ type: SET_PLAN, payload: { currentPlan, currentPrice } })
+	const handlePlan = (currentPlan, index) => {
+		let newPrice =
+			state.periodTime === 'Monthly'
+				? state.monthly[index]
+				: state.yearly[index]
+		
+		dispatch({ type: SET_PLAN, payload: { currentPlan, newPrice } })
 	}
 
-	const handlePlanEnter = (e, currentPlan, currentPrice, index) => {
+	const handlePlanEnter = (e, currentPlan, index) => {
 		if (e.key === 'Enter') {
-			handlePlan(currentPlan, currentPrice, index)
+			handlePlan(currentPlan, index)
 		}
 	}
 
@@ -96,10 +113,9 @@ const AppContext = ({ children }) => {
 	}
 
 	const handleNextClick = () => {
-		// if (state.steps.stepOne && checkInputs()) {
-		// 	handleNextSteps()
-		// }
-		// checkPlanBorder()
+		if (state.steps.stepOne && checkInputs()) {
+			handleNextSteps()
+		}
 		if (state.steps.stepTwo && !checkPlanBorder()) {
 			handleNextSteps()
 		}
@@ -116,8 +132,20 @@ const AppContext = ({ children }) => {
 		dispatch({ type: MONTH_YEAR_BTN })
 	}
 
-	const handleActiveAddon = index => {
+	const handleActiveAddon = (index, title, price) => {
+		const existedItems = state.items.some(item => item.title === title)
+
+		if (existedItems) {
+			dispatch({ type: REMOVE_PLAN, payload: { title } })
+		} else {
+			dispatch({ type: ADD_PLAN, payload: { title, price } })
+		}
+
 		dispatch({ type: SET_ADDON, payload: index })
+	}
+
+	const handleChangePlan = () => {
+		dispatch({ type: MODIFY_PLAN })
 	}
 
 	const handleSubmit = e => {
@@ -138,6 +166,7 @@ const AppContext = ({ children }) => {
 				state,
 				handleButtonPlan,
 				handleActiveAddon,
+				handleChangePlan,
 			}}>
 			{children}
 		</GlobalContext.Provider>

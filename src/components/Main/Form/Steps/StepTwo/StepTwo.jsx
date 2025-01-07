@@ -25,7 +25,7 @@ const StepTwo = () => {
 				You have the option of monthly or yearly billing.
 			</p>
 			<div className={styles.btnsBox}>
-				{plansData.map(({ title, price, icon, alt }, index) => {
+				{plansData.map(({ title, icon, alt }, index) => {
 					return (
 						<div
 							tabIndex='0'
@@ -35,9 +35,9 @@ const StepTwo = () => {
 								[styles.redBorder]: state.planBorder === true,
 							})}
 							key={index}
-							onClick={() => handlePlan({ title }, { price }, { index })}
+							onClick={() => handlePlan({ title }, index)}
 							onKeyDown={e =>
-								handlePlanEnter(e, { title }, { price }, { index })
+								handlePlanEnter(e, { title }, index)
 							}
 							ref={buttonRef}>
 							<img src={icon} alt={alt} className={styles.icon} />

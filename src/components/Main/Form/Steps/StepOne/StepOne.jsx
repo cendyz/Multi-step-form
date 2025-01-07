@@ -5,7 +5,7 @@ import React from 'react'
 import { stepOneData } from '../../../../../data'
 
 const StepOne = () => {
-	const { handleUser, inputRef,state } = useGlobalContext()
+	const { handleUser, inputRef, state } = useGlobalContext()
 	return (
 		<>
 			<div
@@ -35,6 +35,8 @@ const StepOne = () => {
 									}}>
 									{index === 1
 										? state.emailError
+										: index === 2
+										? state.phoneError
 										: 'This field is required.'}
 								</p>
 							</div>

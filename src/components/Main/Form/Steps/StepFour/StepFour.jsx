@@ -3,7 +3,7 @@ import { useGlobalContext } from '../../../../../Context'
 import classNames from 'classnames'
 
 const StepFour = () => {
-	const { state } = useGlobalContext()
+	const { state, handleChangePlan } = useGlobalContext()
 	return (
 		<div
 			className={classNames(styles.box, {
@@ -19,24 +19,31 @@ const StepFour = () => {
 			<div className={styles.boxItemsInfo}>
 				<div className={styles.topBox}>
 					<div className={styles.topLeft}>
-						<p className={styles.leftTitle}>Arcade (Monthly)</p>
-						<button className={styles.btnChange}>Change</button>
+						<p className={styles.leftTitle}>
+							{state.plan.name} ({state.periodTime})
+						</p>
+						<button
+							className={styles.btnChange}
+							type='button'
+							onClick={handleChangePlan}>
+							Change
+						</button>
 					</div>
-					<p className={styles.topPrice}>$90/yr</p>
+					<p className={styles.topPrice}>{state.plan.price}</p>
 				</div>
-				<div className={styles.midBox}>
-					<p className={styles.midTitle}>Online service</p>
-					<p className={styles.midPrice}>+$10/yr</p>
-				</div>
-				<div className={styles.midBox}>
-					<p className={styles.midTitle}>Online service</p>
-					<p className={styles.midPrice}>+$10/yr</p>
-				</div>
+				{state.items.map(({title, price}, index) => {
+					return (
+						<div className={styles.midBox} key={index}>
+							<p className={styles.midTitle}>{title}</p>
+							<p className={styles.midPrice}>{price}</p>
+						</div>
+					)
+				})}
 			</div>
-				<div className={styles.botBox}>
-					<p className={styles.botTitle}>Total (per year)</p>
-					<p className={styles.botPrice}>$120/yr</p>
-				</div>
+			<div className={styles.botBox}>
+				<p className={styles.botTitle}>Total (per year)</p>
+				<p className={styles.botPrice}>$120/yr</p>
+			</div>
 		</div>
 	)
 }
