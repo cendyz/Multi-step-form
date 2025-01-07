@@ -36,9 +36,7 @@ const StepTwo = () => {
 							})}
 							key={index}
 							onClick={() => handlePlan({ title }, index)}
-							onKeyDown={e =>
-								handlePlanEnter(e, { title }, index)
-							}
+							onKeyDown={e => handlePlanEnter(e, { title }, index)}
 							ref={buttonRef}>
 							<img src={icon} alt={alt} className={styles.icon} />
 							<div className={styles.descBox}>

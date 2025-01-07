@@ -23,7 +23,7 @@ const BottomBar = () => {
 				className={classNames(styles.rightBtn, {
 					[styles.confirmBtn]: state.steps.stepFour,
 				})}
-				type={state.steps.stepFour ? 'submit' : 'button'}
+				type='button'
 				id='myForm'
 				onClick={handleNextClick}>
 				{state.steps.stepFour ? 'Confirm' : 'Next Step'}

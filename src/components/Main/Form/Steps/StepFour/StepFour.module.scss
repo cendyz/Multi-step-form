@@ -63,3 +63,38 @@
 	font-weight: $weight-700;
 	font-size: 1.5rem;
 }
+
+@media (min-width: 992px) {
+	.botBox,
+	.boxItemsInfo {
+		padding: 1.3em;
+	}
+	.topBox {
+		padding-bottom: 1.5em;
+	}
+
+	.botTitle,
+	.btnChange,
+	.topPrice {
+		font-size: 1.5rem;
+	}
+
+	.leftTitle {
+		font-size: 1.6rem;
+		margin-bottom: 0.2em;
+	}
+
+	.midBox,
+	.botBox {
+		font-size: 1.3rem;
+		margin: 1.3em 0;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.botPrice {
+		font-size: 2.3rem;
+	}
+}

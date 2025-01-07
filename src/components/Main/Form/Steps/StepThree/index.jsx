@@ -1,3 +1,3 @@
-import StepThree from "./StepThree";
+import StepThree from './StepThree'
 
 export default StepThree

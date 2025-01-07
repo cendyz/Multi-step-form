@@ -5,22 +5,22 @@ export const headerData = [
 	{
 		step: 'stepOne',
 		num: 1,
-		desc: 'your info'
+		desc: 'your info',
 	},
 	{
 		step: 'stepTwo',
 		num: 2,
-		desc: 'select plan'
+		desc: 'select plan',
 	},
 	{
 		step: 'stepThree',
 		num: 3,
-		desc: 'add-ons'
+		desc: 'add-ons',
 	},
 	{
 		step: 'stepFour',
 		num: 4,
-		desc: 'summary'
+		desc: 'summary',
 	},
 ]
 
@@ -31,10 +31,12 @@ export const stepOneData = [
 	},
 	{
 		name: 'email',
+		fullName: 'Address',
 		placeholder: 'e.g. stephenking@lorem.com',
 	},
 	{
 		name: 'phone',
+		fullName: 'Number',
 		placeholder: 'e.g. +1 234 567 890',
 	},
 ]

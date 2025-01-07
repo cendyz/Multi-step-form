@@ -54,3 +54,14 @@
 	color: $purplish-blue;
 	font-weight: $weight-500;
 }
+
+@media (min-width: 992px) {
+	.addonTitle {
+		margin-bottom: 0.2em;
+		font-size: 1.6rem;
+	}
+	.addonText,
+	.price {
+		font-size: 1.4rem;
+	}
+}

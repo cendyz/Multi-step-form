@@ -8,7 +8,7 @@ const Header = () => {
 	const { state } = useGlobalContext()
 	return (
 		<div className={styles.header}>
-			<img src={pattern} alt='' className={styles.headerPattern} />
+			<img src={pattern} alt='Pattern image' className={styles.headerPattern} />
 			<div className={styles.stepBox}>
 				{headerData.map(({ step, num }, index) => {
 					return (

@@ -4,7 +4,7 @@
 
 .label {
 	text-transform: capitalize;
-	font-weight: $weight-700;
+	font-weight: $weight-500;
 	color: $marine-blue;
 }
 
@@ -34,8 +34,8 @@
 	width: 100%;
 	padding: 0.6em 1.2em;
 	border: 1px solid $light-gray;
-	border-radius: 0.3em;
-	transition: border .2s;
+	border-radius: 0.8em;
+	transition: border 0.2s;
 
 	&:focus {
 		outline: none;
@@ -44,5 +44,16 @@
 
 	&::placeholder {
 		font-weight: $weight-500;
+	}
+}
+
+@media (min-width: 992px) {
+	.input {
+		padding: 0.9em 1.2em;
+	}
+	.labelBox {
+		&:not(:first-child) {
+			margin-top: 1.5em;
+		}
 	}
 }

@@ -5,7 +5,7 @@ import { addonsData } from '../../../../../data'
 import { nanoid } from 'nanoid'
 
 const StepThree = () => {
-	const { state, handleActiveAddon} = useGlobalContext()
+	const { state, handleActiveAddon } = useGlobalContext()
 	return (
 		<>
 			<div

@@ -47,7 +47,6 @@
 	text-align: left;
 	flex-direction: column;
 	row-gap: 0.3em;
-	
 }
 
 .descTitle {
@@ -114,5 +113,24 @@
 .btnPosition {
 	&::before {
 		left: 63%;
+	}
+}
+
+@media (min-width: 992px) {
+	.btnsBox {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+
+	.btn {
+		width: 30%;
+		row-gap: 3em;
+		flex-direction: column;
+	}
+
+	.periodTime {
+		margin-top: 1em;
+		width: 100%;
 	}
 }

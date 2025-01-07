@@ -41,7 +41,9 @@ const StepFour = () => {
 				})}
 			</div>
 			<div className={styles.botBox}>
-				<p className={styles.botTitle}>Total (per year)</p>
+				<p className={styles.botTitle}>
+					Total (per {state.periodTime === 'Monthly' ? 'month' : 'year'})
+				</p>
 				<p className={styles.botPrice}>
 					${state.totalSum}/{state.periodTime === 'Monthly' ? 'mo' : 'yr'}
 				</p>

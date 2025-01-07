@@ -19,14 +19,14 @@ const StepOne = () => {
 				<p className={styles.desc}>
 					Please provide your name, email address, and phone number.
 				</p>
-				{stepOneData.map(({ name, placeholder }, index) => {
+				{stepOneData.map(({ name, fullName, placeholder }, index) => {
 					const actualError = state.error[index]
 
 					return (
 						<React.Fragment key={index}>
 							<div className={styles.labelBox}>
 								<label htmlFor={name} className={styles.label}>
-									{name}
+									{name} {fullName}
 								</label>
 								<p
 									className={styles.textError}

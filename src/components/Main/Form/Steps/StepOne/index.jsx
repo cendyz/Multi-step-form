@@ -1,3 +1,3 @@
-import StepOne from "./StepOne";
+import StepOne from './StepOne'
 
 export default StepOne

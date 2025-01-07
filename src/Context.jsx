@@ -179,7 +179,7 @@ const AppContext = ({ children }) => {
 	}, [state.plan.price, state.items])
 
 	const handleSubmit = e => {
-		console.log(e.target)
+		e.preventDefault()
 	}
 
 	return (
